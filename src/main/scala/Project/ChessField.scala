@@ -21,6 +21,14 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
     val osName = System.getProperty("os.name").toLowerCase
     if (osName.contains("windows")) 25 else 0
   }
+  
+  def getX: Int = {
+    x
+  }
+
+  def getY: Int = {
+    y
+  }
 
   init()
 

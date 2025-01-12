@@ -21,7 +21,7 @@ object FigureFactory {
       case "queen"  => new Queen(color, boardField)
       case "king"   => new King(color, boardField)
       case "pawn"   => new Pawn(color, boardField)
-      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
+//      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
     }
     figure.setFirstTurn(firstTurn)
     figure
@@ -33,13 +33,13 @@ object FigureFactory {
     }
     val boardField = ChessGame.getBoard().getField(x, y)
     val figure = `type` match {
-      case 0b0      => new Pawn(color, boardField)
-      case 0b100    => new Rook(color, boardField)
-      case 0b101    => new Knight(color, boardField)
-      case 0b110    => new Bishop(color, boardField)
-      case 0b1110   => new Queen(color, boardField)
-      case 0b1111   => new King(color, boardField)
-      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
+      case 0x0      => new Pawn(color, boardField)
+      case 0x4    => new Rook(color, boardField)
+      case 0x5    => new Knight(color, boardField)
+      case 0x6    => new Bishop(color, boardField)
+      case 0xe   => new Queen(color, boardField)
+      case 0xf   => new King(color, boardField)
+//      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
     }
     figure.setFirstTurn(firstTurn)
     figure
@@ -47,12 +47,12 @@ object FigureFactory {
 
   def getFigureID(f: Figure): Int = {
     f match {
-      case _: Pawn   => 0b0
-      case _: Rook   => 0b100
-      case _: Knight => 0b101
-      case _: Bishop => 0b110
-      case _: Queen  => 0b1110
-      case _: King   => 0b1111
+      case _: Pawn   => 0x0
+      case _: Rook   => 0x4
+      case _: Knight => 0x5
+      case _: Bishop => 0x6
+      case _: Queen  => 0xe
+      case _: King   => 0xf
       case _         => 0
     }
   }

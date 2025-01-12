@@ -66,10 +66,12 @@ abstract class Figure(val color: Color, val name: String, private var field: Che
   def postTurnAction(oldField: ChessField, newField: ChessField, graphic: Boolean): Figure = null
 
   def getAllAccessibleFields: List[ChessField] = {
-    val fields = getAccessibleFields()
+    import scala.jdk.CollectionConverters._
+
+    val fields = getAccessibleFields().asScala // Convert Java list to Scala list
     val king = field.getBoard.getKing(color)
     if (king != null) {
-      fields.asScala.filter { to =>
+      fields.filter { to =>
         val oldField = field
         val killedFigure = move(to, graphic = false)
         field.getBoard.recalculateAttackedFields()
@@ -78,8 +80,8 @@ abstract class Figure(val color: Color, val name: String, private var field: Che
         if (killedFigure != null) killedFigure.field.setFigure(killedFigure, graphic = false)
         field.getBoard.recalculateAttackedFields()
         !check
-      }.toList.asJava
-    } else fields
+      }.toList
+    } else fields.toList
   }
 
   override def toString: String = s"Figure:<${color.name} $name x=$x y=$y Field=$field>"

@@ -1,7 +1,6 @@
 package Project.figure
 
 import Project.ChessField
-
 import scala.collection.mutable.ListBuffer
 import scala.jdk.CollectionConverters.*
 

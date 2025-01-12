@@ -8,7 +8,7 @@ import scala.collection.mutable.{ArrayBuffer, HashMap, HashSet}
 
 class ChessBoard extends GridPane {
 
-  private val fields: Array
+  private val fields: Array[ChessField]
   private val attackedFields: mutable.Map[Color, mutable.Set[ChessField]] =
     HashMap(Color.BLACK -> HashSet.empty, Color.WHITE -> HashSet.empty)
   private var currentTurn: Int = 1
