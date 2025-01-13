@@ -8,9 +8,9 @@ import scala.collection.mutable.{ArrayBuffer, HashMap, HashSet}
 
 class ChessBoard extends GridPane {
 
-  private val fields: Array[ChessField]
+  private val fields: Array
   private val attackedFields: mutable.Map[Color, mutable.Set[ChessField]] =
-    HashMap(Color.BLACK -> HashSet.empty, Color.WHITE -> HashSet.empty)
+    mutable.HashMap(Color.BLACK -> mutable.HashSet.empty, Color.WHITE -> mutable.HashSet.empty)
   private var currentTurn: Int = 1
   private var ruleOf50: Int = 0
   private val io: mutable.Map[String, ChessIO] = mutable.LinkedHashMap.empty
@@ -83,27 +83,27 @@ class ChessBoard extends GridPane {
   def recalculateAttackedFields(): Unit = {
     resetAttackedFields()
     fields
-      .filter(f => f.figure != null && f.figure.getColor == Color.WHITE)
-      .foreach(f => attackedFields(Color.WHITE) ++= f.figure.getAccessibleFields)
+      .filter(f => f.getFigure != null && f.getFigure.getColor == Color.WHITE)
+      .foreach(f => attackedFields(Color.WHITE) ++= f.getFigure.getAccessibleFields)
     fields
-      .filter(f => f.figure != null && f.figure.getColor == Color.BLACK)
-      .foreach(f => attackedFields(Color.BLACK) ++= f.figure.getAccessibleFields)
+      .filter(f => f.getFigure != null && f.getFigure.getColor == Color.BLACK)
+      .foreach(f => attackedFields(Color.BLACK) ++= f.getFigure.getAccessibleFields)
   }
 
   def getAllAccessibleFields(color: Color): Set[ChessField] = attackedFields(color).toSet
 
   def getKing(color: Color): King =
     fields.collectFirst {
-      case field if field.figure.isInstanceOf[King] && field.figure.getColor == color =>
-        field.figure.asInstanceOf[King]
+      case field if field.getFigure.isInstanceOf[King] && field.getFigure.getColor == color =>
+        field.getFigure.asInstanceOf[King]
     }.orNull
 
   def getFigures: List[Figure] = getFigures(null)
 
   def getFigures(color: Color): List[Figure] =
     fields
-      .filter(f => f.figure != null && (color == null || f.figure.getColor == color))
-      .map(_.figure)
+      .filter(f => f.getFigure != null && (color == null || f.getFigure.getColor == color))
+      .map(_.getFigure)
       .toList
 
   def clear(): Unit = {
@@ -119,10 +119,16 @@ class ChessBoard extends GridPane {
   def getIO: Map[String, ChessIO] = io.toMap
 
   def loadFromResource(resource: String): Unit =
-    load(getFileExtension(resource), Helper.loadDataFromResource(resource))
+    Helper.loadDataFromResource(resource) match {
+      case Some(data) => load(getFileExtension(resource), data)
+      case None       => throw new IllegalArgumentException(s"Failed to load data from resource: $resource")
+    }
 
   def load(file: File): Unit =
-    load(getFileExtension(file.getName), Helper.loadDataFromFile(file))
+    Helper.loadDataFromFile(file) match {
+      case Some(data) => load(getFileExtension(file.getName), data)
+      case None       => throw new IllegalArgumentException(s"Failed to load data from file: ${file.getName}")
+    }
 
   private def getFileExtension(name: String): String = name.substring(name.lastIndexOf('.') + 1)
 

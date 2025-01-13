@@ -13,7 +13,7 @@ object FigureFactory {
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       throw new IllegalArgumentException(s"Position not on board: '$pos'")
     }
-    val boardField = ChessGame.getBoard().getField(x, y)
+    val boardField = ChessGame.getBoard.getField(x, y)
     val figure = `type`.toLowerCase match {
       case "rook"   => new Rook(color, boardField)
       case "knight" => new Knight(color, boardField)
@@ -31,7 +31,7 @@ object FigureFactory {
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       throw new IllegalArgumentException(s"Position not on board: '$x/$y'")
     }
-    val boardField = ChessGame.getBoard().getField(x, y)
+    val boardField = ChessGame.getBoard.getField(x, y)
     val figure = `type` match {
       case 0x0      => new Pawn(color, boardField)
       case 0x4    => new Rook(color, boardField)

@@ -1,11 +1,13 @@
 package Project.figure
 
 import Project.{ChessField, PromotionDialog}
-
 import scala.jdk.CollectionConverters.*
 import scala.collection.mutable.ListBuffer
 
 class Pawn(color: Color, field: ChessField) extends Figure(color, "pawn", field) {
+  
+  def x: Int = field.getX
+  def y: Int = field.getY
 
   override def getAccessibleFields(): java.util.List[ChessField] = {
     val fields = ListBuffer[ChessField]()

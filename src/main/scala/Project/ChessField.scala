@@ -41,7 +41,7 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
     setOnDragDone(onDragDone)
     setOnMouseEntered(_ => onMouseEntered())
     setOnMouseExited(_ => onMouseExited())
-    if (ChessGame.isGodmode()) {
+    if (ChessGame.isGodmode) {
       setContextMenu(new GodmodeMenu(this))
     }
     setMinSize(50, 50)
@@ -146,7 +146,7 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
       if (source.canMoveTo(this)) {
         resetBackgroundColor()
         source.getAccessibleFields.asScala.foreach(_.resetBackgroundColor())
-        source.move(this, applyGraphics = true)
+        source.move(this, graphic = true)
         board.nextTurn()
       }
     }

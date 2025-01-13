@@ -105,8 +105,8 @@ class ChessGame extends Application {
 
   private def createFileChooser(): FileChooser = {
     val fileChooser = new FileChooser()
-    board.getIO.asScala.foreach { case (k, v) =>
-      fileChooser.getExtensionFilters.add(new ExtensionFilter(v.getFileTypeDescription, s"*.${v.getFileExtension}"))
+    board.getIO.foreach { case (extension, ioInstance) =>
+      fileChooser.getExtensionFilters.add(new ExtensionFilter(ioInstance.getFileTypeDescription, s"*.${ioInstance.getFileExtension}"))
     }
     fileChooser
   }
