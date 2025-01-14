@@ -8,7 +8,6 @@ import scala.jdk.CollectionConverters.*
 
 abstract class Figure(val color: Color, val name: String, private var field: ChessField) extends Serializable {
 
-  val CHESS_FIGURE: DataFormat = new DataFormat("chess.figure")
   private val imageFileName = s"images/${color.name}_${name}.png"
   private var firstTurn: Int = -1
   private var x: Int = -1
@@ -92,6 +91,9 @@ abstract class Figure(val color: Color, val name: String, private var field: Che
 object Figure {
   private val imageCache: mutable.Map[String, Image] = mutable.Map.empty
 
+  val CHESS_FIGURE: DataFormat = new DataFormat("chess.figure") // Move CHESS_FIGURE here
+
   def loadImage(resource: String): Image =
     imageCache.getOrElseUpdate(resource, Helper.loadImage(resource, 50, 50))
 }
+
