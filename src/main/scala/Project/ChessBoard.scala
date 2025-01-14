@@ -108,7 +108,7 @@ class ChessBoard extends GridPane {
       .toList
 
   def clear(): Unit = {
-    fields.foreach(_.setFigure(null, setAttacked = true))
+    fields.foreach(_.setFigure(null, graphic = true, setAttacked = true))
     recalculateAttackedFields()
     currentTurn = 1
     ruleOf50 = 0

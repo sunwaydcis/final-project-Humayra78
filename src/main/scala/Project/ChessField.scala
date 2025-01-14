@@ -21,6 +21,7 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
     val osName = System.getProperty("os.name").toLowerCase
     if (osName.contains("windows")) 25 else 0
   }
+  
 
   def getX: Int = {
     x
@@ -75,11 +76,14 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
 
   def getBoard: ChessBoard = board
 
-  def setFigure(figure: Figure, graphic: Boolean): Unit = {
+  def setFigure(figure: Figure, graphic: Boolean, setAttacked: Boolean = false): Unit = {
     this.figure = figure
     if (graphic) {
       if (figure == null) setGraphic(null)
       else setGraphic(figure.getImageView)
+    }
+    if (setAttacked) {
+      board.recalculateAttackedFields()
     }
   }
 
