@@ -3,7 +3,6 @@ package Project.figure
 import javafx.scene.image.{Image, ImageView}
 import javafx.scene.input.DataFormat
 import Project.{ChessField, ChessGame, Helper}
-
 import scala.collection.mutable
 import scala.jdk.CollectionConverters.*
 

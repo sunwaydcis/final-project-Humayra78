@@ -42,7 +42,7 @@ class ChessBoard extends GridPane {
     if (x < 0 || x > 7 || y < 0 || y > 7) null else fields(y * 8 + x)
 
   def setFigure(figure: Figure): Unit =
-    getField(figure.getX, figure.getY).setFigure(figure, setAttacked = true)
+    getField(figure.getX, figure.getY).setFigure(figure, graphic = true)
 
   def getCurrentTurn: Int = currentTurn
 

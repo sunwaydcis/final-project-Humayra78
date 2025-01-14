@@ -6,6 +6,9 @@ import scala.jdk.CollectionConverters.*
 
 class Knight(color: Color, field: ChessField) extends Figure(color, "knight", field) {
 
+  def x: Int = field.getX
+  def y: Int = field.getY
+
   override def getAccessibleFields(): java.util.List[ChessField] = {
     val fields = ListBuffer[ChessField]()
 

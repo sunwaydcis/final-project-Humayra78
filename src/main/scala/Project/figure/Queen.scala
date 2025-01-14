@@ -7,6 +7,9 @@ import scala.collection.mutable.ListBuffer
 
 class Queen(color: Color, field: ChessField) extends Figure(color, "queen", field) {
 
+  def x: Int = field.getX
+  def y: Int = field.getY
+
   override def getAccessibleFields(): java.util.List[ChessField] = {
     val fields = ListBuffer[ChessField]()
     val board = field.getBoard

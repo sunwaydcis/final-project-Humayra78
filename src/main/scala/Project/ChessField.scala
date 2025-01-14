@@ -87,9 +87,9 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
 
   private def onMouseEntered(): Unit = {
     if (figure != null && figure.canMove) {
-      val accessibleFields = figure.getAllAccessibleFields.asScala
+      val accessibleFields = figure.getAllAccessibleFields().asScala
       accessibleFields.foreach { field =>
-        if (field.figure != null || field.isEnPassantField(figure)) field.setHighlightKill()
+        if (field.getFigure != null || field.isEnPassantField(figure)) field.setHighlightKill()
         else field.setHighlightEmpty()
       }
     }
@@ -97,7 +97,7 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
 
   private def onMouseExited(): Unit = {
     if (figure != null && figure.canMove) {
-      val accessibleFields = figure.getAllAccessibleFields.asScala
+      val accessibleFields = figure.getAllAccessibleFields().asScala
       accessibleFields.foreach(_.resetBackgroundColor())
     }
   }
@@ -133,7 +133,7 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
     val dragboard = event.getDragboard
     if (dragboard.hasContent(Figure.CHESS_FIGURE)) {
       val source = deserializeFigure(dragboard)
-      source.getAccessibleFields.asScala.foreach(_.resetBackgroundColor())
+      source.getAccessibleFields().asScala.foreach(_.resetBackgroundColor())
     }
     event.consume()
   }
@@ -145,7 +145,7 @@ class ChessField(private val board: ChessBoard, val x: Int, val y: Int) extends 
       source = board.getField(source.getX, source.getY).getFigure
       if (source.canMoveTo(this)) {
         resetBackgroundColor()
-        source.getAccessibleFields.asScala.foreach(_.resetBackgroundColor())
+        source.getAccessibleFields().asScala.foreach(_.resetBackgroundColor())
         source.move(this, graphic = true)
         board.nextTurn()
       }
