@@ -5,6 +5,7 @@ import Project.figure._
 import java.io.File
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, HashMap, HashSet}
+import scala.jdk.CollectionConverters._
 
 class ChessBoard extends GridPane {
 
@@ -84,10 +85,10 @@ class ChessBoard extends GridPane {
     resetAttackedFields()
     fields
       .filter(f => f.getFigure != null && f.getFigure.getColor == Color.WHITE)
-      .foreach(f => attackedFields(Color.WHITE) ++= f.getFigure.getAccessibleFields)
+      .foreach(f => attackedFields(Color.WHITE) ++= f.getFigure.getAccessibleFields().asScala)
     fields
       .filter(f => f.getFigure != null && f.getFigure.getColor == Color.BLACK)
-      .foreach(f => attackedFields(Color.BLACK) ++= f.getFigure.getAccessibleFields)
+      .foreach(f => attackedFields(Color.BLACK) ++= f.getFigure.getAccessibleFields().asScala)
   }
 
   def getAllAccessibleFields(color: Color): Set[ChessField] = attackedFields(color).toSet
