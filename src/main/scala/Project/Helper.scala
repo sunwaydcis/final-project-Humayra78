@@ -13,7 +13,7 @@ object Helper {
     stream match {
       case Some(s) => new Image(s, width, height, true, true)
       case None =>
-        throw new IllegalArgumentException(s"Resource $resource not found.")
+        throw new IllegalArgumentException("Resource $resource not found.")
     }
   }
 
