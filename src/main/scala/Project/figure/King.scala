@@ -53,15 +53,19 @@ class King(color: Color, field: ChessField) extends Figure(color, "king", field)
 
   def isCheckMate: Boolean = {
     if (isCheck) {
-      field.getBoard.getFigures(color).forall(_.getAllAccessibleFields().isEmpty)
+      field.getBoard.getFigures(color).forall { figure =>
+        figure.getAllAccessibleFields().asScala.isEmpty
+      }
     } else {
       false
     }
   }
-
+  
   def isStaleMate: Boolean = {
     if (!isCheck) {
-      field.getBoard.getFigures(color).forall(_.getAllAccessibleFields().isEmpty)
+      field.getBoard.getFigures(color).forall { figure =>
+        figure.getAllAccessibleFields().asScala.isEmpty
+      }
     } else {
       false
     }
