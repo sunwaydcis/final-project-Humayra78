@@ -21,7 +21,7 @@ object FigureFactory {
       case "queen"  => new Queen(color, boardField)
       case "king"   => new King(color, boardField)
       case "pawn"   => new Pawn(color, boardField)
-//      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
+      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
     }
     figure.setFirstTurn(firstTurn)
     figure
@@ -39,7 +39,7 @@ object FigureFactory {
       case 0x6    => new Bishop(color, boardField)
       case 0xe   => new Queen(color, boardField)
       case 0xf   => new King(color, boardField)
-//      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
+      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
     }
     figure.setFirstTurn(firstTurn)
     figure
