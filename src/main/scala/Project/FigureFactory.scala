@@ -4,7 +4,7 @@ import Project.figure._
 
 object FigureFactory {
 
-  def createFigure(color: Color, `type`: String, pos: String, firstTurn: Int): Figure = {
+  def createFigure(color: Color, figureType: String, pos: String, firstTurn: Int): Figure = {
     if (pos.length != 2) {
       throw new IllegalArgumentException(s"Invalid position: '$pos'")
     }
@@ -14,32 +14,32 @@ object FigureFactory {
       throw new IllegalArgumentException(s"Position not on board: '$pos'")
     }
     val boardField = ChessGame.getBoard.getField(x, y)
-    val figure = `type`.toLowerCase match {
+    val figure = figureType.toLowerCase match {
       case "rook"   => new Rook(color, boardField)
       case "knight" => new Knight(color, boardField)
       case "bishop" => new Bishop(color, boardField)
       case "queen"  => new Queen(color, boardField)
       case "king"   => new King(color, boardField)
       case "pawn"   => new Pawn(color, boardField)
-      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
+      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$figureType'")
     }
     figure.setFirstTurn(firstTurn)
     figure
   }
 
-  def createFigure(color: Color, `type`: Int, x: Int, y: Int, firstTurn: Int): Figure = {
+  def createFigure(color: Color, figureType: Int, x: Int, y: Int, firstTurn: Int): Figure = {
     if (x < 0 || x > 7 || y < 0 || y > 7) {
       throw new IllegalArgumentException(s"Position not on board: '$x/$y'")
     }
     val boardField = ChessGame.getBoard.getField(x, y)
-    val figure = `type` match {
-      case 0x0      => new Pawn(color, boardField)
-      case 0x4    => new Rook(color, boardField)
-      case 0x5    => new Knight(color, boardField)
-      case 0x6    => new Bishop(color, boardField)
-      case 0xe   => new Queen(color, boardField)
-      case 0xf   => new King(color, boardField)
-      case _        => throw new IllegalArgumentException(s"Unknown Figure: '$`type`'")
+    val figure = figureType match {
+      case 0x0 => new Pawn(color, boardField)
+      case 0x4 => new Rook(color, boardField)
+      case 0x5 => new Knight(color, boardField)
+      case 0x6 => new Bishop(color, boardField)
+      case 0xe => new Queen(color, boardField)
+      case 0xf => new King(color, boardField)
+      case _   => throw new IllegalArgumentException(s"Unknown Figure: '$figureType'")
     }
     figure.setFirstTurn(firstTurn)
     figure
